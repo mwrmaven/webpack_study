@@ -26,6 +26,11 @@ import './css/index.scss'
 // npm i sass-loader -D
 // npm i node-sass -D ， node-sass 是 sass-loader的内部依赖
 
+import 'bootstrap/dist/css/bootstrap.css'
+// 如果要通过路径的形式，去引入 node_modules中相关的文件；
+// 可以直接省略路径前面的node_modules这一层目录，直接写包的名称，然后后面跟上具体的文件路径
+// 不写node_modules，默认就会去node_modules中查找
+
 
 
 $(function () {
@@ -50,6 +55,33 @@ $(function () {
 // 9、webpack-dev-server --hot 热部署，对代码打补丁，并不重新生成
 // 10、webpack-dev-server --contentBase src 指定项目在浏览器打开的路径（默认路径为项目的根目录）
 // 11、在配置文件中可以配置 devServer以简化webpack-dev-server命令，但是配置较为复杂，建议使用webpack-dev-server + 参数的形式
+
+
+// class关键字是es6中提供的新语法，是用来实现es6中面向对象编程的方式
+class Person{
+    static info = {name: 'zs', age: 20}
+}
+
+console.log(Person.info);
+// 在webpack中，默认只能处理一部分es6的新语法，一些更高级的es6语法或者es7语法，webpack是处理不了的；
+// 这时候，就需要借助于第三方的loader，来帮助webpack处理这些高级的语法，当第三方loader把高级语法转为低级语法后，
+// 会将结果交给webpack去打包到bundle.js中
+// 1、通过 Babel，可以将高级语法转换为低级语法，webpack中可以运行如下两套命令，安装两套包去安装Babel相关的loader：
+// 1.1、npm i babel-core babel-loader babel-plugin-transform-runtime -D
+// 1.2、npm i babel-preset-env babel-preset-stage-0 -D
+// 2、打开webpack的配置文件，在module节点下的rules数组中，添加一个新的匹配规则；
+// 2.1、{test: /\.js$/, use: 'babel-loader', exclude:/node_modules/}
+// 2.2、注意：在配置babel的loader规则的时候，必须将node_modules目录通过exclude选项排除掉，原因如下：
+//      2.2.1 如果不排除node_modules，则babel会将node_modules中所有的第三方js文件，都打包编译，这样，非常消耗cpu，同时，打包速度非常慢；
+//      2.2.2 即使最终，babel将所有的node_modules中的js转化完成，但最终，项目也无法正常运行
+// 3、在项目的根目录中新建一个 .babelrc 的配置文件，这个配置文件属于json格式
+//  3.1 在 .babelrc 中写：(presets可以看作是语法)
+// {
+//     "presets": ["env", "stage-0"],
+//     "plugins": ["transform-runtime"]
+// }
+
+
 
 
 

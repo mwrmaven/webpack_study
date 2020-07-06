@@ -2,7 +2,19 @@ li{
     list-style: none;
 }
 #img{
-    width: 300px;
-    height: 100px;
-    background-color: yellow;
+    width: 1500px;
+    height: 700px;
+    /*默认情况下，webpack无法处理css文件中的url地址，无论是图片还是字体库，只要是url，就无法处理*/
+    /*需安装第三方的模块加载器 url-loader file-loader；其中file-loader是url-loader的内部依赖*/
+    background: url("../images/test.jpg");
+    background-size: cover;
 }
+#img2{
+    width: 1500px;
+    height: 700px;
+    /*默认情况下，webpack无法处理css文件中的url地址，无论是图片还是字体库，只要是url，就无法处理*/
+    /*需安装第三方的模块加载器 url-loader file-loader；其中file-loader是url-loader的内部依赖*/
+    background: url("../images2/test.jpg");
+    background-size: cover;
+}
+

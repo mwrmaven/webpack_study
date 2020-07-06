@@ -17,13 +17,13 @@ module.exports = {
         path: path.join(__dirname, './dist'), // 指定打包好的文件输出到哪个目录中去
         filename: "bundle.js" // 指定输出的文件的名称
     },
-    devServer: { // 这是配置webpack-dev-server命令参数的形式
-        //  --open --port 8088 --contentBase src --hot
-        open: true, // 自动打开浏览器
-        port: 3000, // 设置服务启动的端口
-        contentBase: 'src', // 指定托管的根目录
-        hot: true // 启用热更新的第1步-----
-    },
+    // devServer: { // 这是配置webpack-dev-server命令参数的形式
+    //     //  --open --port 8088 --contentBase src --hot
+    //     open: true, // 自动打开浏览器
+    //     port: 3000, // 设置服务启动的端口
+    //     contentBase: 'src', // 指定托管的根目录
+    //     hot: true // 启用热更新的第1步-----
+    // },
     plugins: [ // 配置插件
         new webpack.HotModuleReplacementPlugin(), // new一个热更新的模块对象，这是启用热更新的第3步，启用完成----
         new htmlWebpackPlugin({ // 根据一个模版页面创建一个在内存中生成html页面的插件  html-webpack-plugin
@@ -36,7 +36,17 @@ module.exports = {
             // use中的调用顺序为从右向左加载调用
             {test: /\.css$/, use: ['style-loader', 'css-loader']}, // 前面test匹配到的类型的文件(test为正则表达式)，由后面use使用的加载器加载
             {test: /\.less$/, use: ['style-loader', 'css-loader', 'less-loader']}, // 这是配置处理.less文件的第三方loader
-            {test: /\.scss$/, use: ['style-loader', 'css-loader', 'sass-loader']} // 配置处理 .scss文件的第三方loader
+            {test: /\.scss$/, use: ['style-loader', 'css-loader', 'sass-loader']}, // 配置处理 .scss文件的第三方loader
+            // 处理图片路径的loader，其中问号代表传参，格式与url传参一样；limit指定图片最大值，单位是byte；
+            // 如果引用的图片大于或等于给定的limit值，就不会被转换为base64格式的字符串；
+            // 如果小于给定的limit值，则会被转换为base64格式的字符串；
+            // name指定图片的名称，其中[name]的意思是以前是什么名就用什么名，[ext]扩展为什么就是什么
+            // [hash:8] 代表生成一个前8位的hash值，这样是为了不让相同名称的图片覆盖
+            {test: /\.jpg|png|gif|bmp|jpeg$/, use: ['url-loader?limit=600&name=[hash:8]-[name].[ext]']},
+            // 处理字体文件的loader，TODO 这里有点儿问题，bootstrap的图标字体文件没有显示
+            {test: /\.ttf｜eot|svg|woff|woff2$/, use: 'url-loader'},
+            {test: /\.js$/, use: 'babel-loader', exclude: /node_modules/}
+
         ]
     }
 };
