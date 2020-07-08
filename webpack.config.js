@@ -9,6 +9,8 @@ const webpack = require('webpack');
 // 2、自动将打包好的bundle.js追加到页面中去
 const htmlWebpackPlugin = require('html-webpack-plugin');
 
+const { VueLoaderPlugin } = require('vue-loader');
+
 // 通过node中的模块module操作，向外暴露了一个配置对象
 module.exports = {
     // 需要手动指定出口和入口
@@ -29,7 +31,8 @@ module.exports = {
         new htmlWebpackPlugin({ // 根据一个模版页面创建一个在内存中生成html页面的插件  html-webpack-plugin
             template: path.join(__dirname, './src/index.html'), // 指定模版页面，将来会根据指定的页面，去生成内存中的页面
             filename: "index.html" // 指定内存中生成的页面的名称
-        })
+        }),
+        new VueLoaderPlugin()
     ],
     module: { // 这个节点，用于配置所有第三方模块加载器
         rules: [
@@ -45,10 +48,18 @@ module.exports = {
             {test: /\.jpg|png|gif|bmp|jpeg$/, use: ['url-loader?limit=600&name=[hash:8]-[name].[ext]']},
             // 处理字体文件的loader，TODO 这里有点儿问题，bootstrap的图标字体文件没有显示
             {test: /\.ttf｜eot|svg|woff|woff2$/, use: 'url-loader'},
-            {test: /\.js$/, use: 'babel-loader', exclude: /node_modules/}
+            // 配置babel，来将高级的es语法转换为低级的es语法，但注意排除 node_modules文件夹
+            {test: /\.js$/, use: 'babel-loader', exclude: /node_modules/},
+            // 处理.vue文件的loader
+            {test: /\.vue$/, use: ['vue-loader']}
 
         ]
     }
+    // resolve: {
+    //     alias: {
+    //         'vue$': 'vue/dist/vue.js' //修改vue被导入时候的包的路径
+    //     }
+    // }
 };
 
 // 当在控制台直接输入webpack命令执行的时候
