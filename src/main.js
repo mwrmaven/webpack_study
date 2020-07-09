@@ -1,33 +1,36 @@
 // TODO webpack 与 vue-router结合
 
 import Vue from 'vue'
-// 导入 Account、GoodsList 组件
-import account from './main/Account.vue'
-import goodslist from './main/GoodsList.vue'
-import login from './subcom/login.vue'
-import register from './subcom/register.vue'
-
+// TODO 路由组件可以单独提取出来，创建一个router.js
+// // 导入 Account、GoodsList 组件
+// import account from './main/Account.vue'
+// import goodslist from './main/GoodsList.vue'
+// import login from './subcom/login.vue'
+// import register from './subcom/register.vue'
+//
 //1、 导入vue路由 vue-router
 import VueRouter from 'vue-router'
 //2、手动安装 VueRouter, 这样来关联vue和vue-router
 Vue.use(VueRouter);
-//3、创建一个路由对象
-var router = new VueRouter({
-    // 路由
-    routes: [
-        // 定义两个路由 account goodslist
-        {
-            path: '/account',
-            component: account,
-            children: [ // 子路由
-                { path: 'login', component: login}, // TODO 注意，子路由不能加斜杠 /
-                { path: 'register', component: register}
-            ]
-        },
-        {path: "/goodslist", component: goodslist}
-    ]
-});
+// //3、创建一个路由对象
+// var router = new VueRouter({
+//     // 路由
+//     routes: [
+//         // 定义两个路由 account goodslist
+//         {
+//             path: '/account',
+//             component: account,
+//             children: [ // 子路由
+//                 { path: 'login', component: login}, // TODO 注意，子路由不能加斜杠 /
+//                 { path: 'register', component: register}
+//             ]
+//         },
+//         {path: "/goodslist", component: goodslist}
+//     ]
+// });
 
+// 导入自定义路由模块
+import router from './router'
 
 // 导入 app 组件
 import app from './App.vue'

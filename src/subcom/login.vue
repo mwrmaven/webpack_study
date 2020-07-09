@@ -11,5 +11,9 @@
 </script>
 
 <style scoped>
+    /* scoped */
 
+    div{
+        color: red;
+    }
 </style>
