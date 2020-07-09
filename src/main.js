@@ -58,11 +58,11 @@ $(function () {
 
 
 // class关键字是es6中提供的新语法，是用来实现es6中面向对象编程的方式
-class Person{
-    static info = {name: 'zs', age: 20}
-}
-
-console.log(Person.info);
+// class Person{
+//     static info = {name: 'zs', age: 20}
+// }
+//
+// console.log(Person.info);
 // 在webpack中，默认只能处理一部分es6的新语法，一些更高级的es6语法或者es7语法，webpack是处理不了的；
 // 这时候，就需要借助于第三方的loader，来帮助webpack处理这些高级的语法，当第三方loader把高级语法转为低级语法后，
 // 会将结果交给webpack去打包到bundle.js中
@@ -144,6 +144,12 @@ var vm = new Vue({
 // 6、创建Vue的实例 var vm = new Vue({el: '#app', render: c => c(login)})
 // 7、在页面中创建一个id为app的div元素，作为Vue实例要控制的区域
 
+
+import m1, { title as t123, tstitle } from './test.js'
+console.log(m1);
+console.log(t123);
+console.log(tstitle)
+// 其中title为export向外暴露的一个成员，但不是 export default，所以需要使用大括号导入
 
 
 
